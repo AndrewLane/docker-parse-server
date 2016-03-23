@@ -1,0 +1,11 @@
+{
+  "name": "docker-parse-server",
+  "private": true,
+  "main": "index.js",
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.13.4",
+    "parse-server": "^2.1.1"
+  }
+}
