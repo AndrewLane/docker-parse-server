@@ -2,18 +2,22 @@
 
 See above for all documentation.
 
-The docker image is updated whenever Node.js is updated, so it should keep fairly fresh.
+Parse listens on the path given in `SERVER_URL`, if any, ***not*** `/parse`
+as in the upstream examples, so it can be easily served from HAProxy and
+composed with other services. For example with multiple apps and envs:
 
-Parse listens on the root of the server, _not_ `/parse` as in the examples, so it can be easily composed with other services.
+    https://parse.example.com/appname/prod/
+    https://parse.example.com/appname/dev/
+    https://parse.example.com/anotherapp/prod/
 
 ## Env
 
-- `APP_ID` Required
+- `APP_ID` **Required**
 - `CLOUD` Defaults to /cloud/main.js
-- `DATABASE_URI` Defaults to mongodb://mongo
-- `MASTER_KEY` Required
+- `DATABASE_URI` Defaults to mongodb://mongo, so you can link to mongo easily
+- `MASTER_KEY` **Required**
 - `PORT` Defaults to 1337, coerced to a number
-- `SERVER_URL` Required, but will use `VIRTUAL_HOST` if present
+- `SERVER_URL` **Required**
 
 ## Volume
 

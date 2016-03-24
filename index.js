@@ -1,12 +1,14 @@
 'use strict'
 
 const app = require('express')()
+const env = process.env
 const ParseServer = require('parse-server').ParseServer
 const url = require('url')
 
-const env = process.env
-const serverURL = env.SERVER_URL !== 'required' ? env.SERVER_URL : env.VIRTUAL_HOST
-const mountPath = url.parse(serverURL).pathname || '/'
+// HAProxy passes on the full URL, so for example if we proxy the app onto
+// https://parse.example.com/appname/dev/ express is going to see that as
+// http://17.0.1.2:1337/appname/dev/. Thus we need to mount at that URL.
+const mountPath = url.parse(env.SERVER_URL).pathname || '/'
 
 app.use(mountPath, new ParseServer({
   appId: env.APP_ID,
@@ -14,12 +16,12 @@ app.use(mountPath, new ParseServer({
   databaseURI: env.DATABASE_URI,
   masterKey: env.MASTER_KEY,
   port: +env.PORT,
-  serverURL
+  serverURL: env.SERVER_URL
 }))
 
 app.listen(env.PORT, () => {
   console.log(`Parse Server UP and running on port ${env.PORT}.
-Accessible at: ${serverURL}
+Accessible at: ${env.SERVER_URL}
 
           ՝--://////:-.
        -/ooooooooooooooo+:՝
