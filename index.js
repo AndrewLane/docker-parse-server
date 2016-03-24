@@ -12,6 +12,7 @@ const mountPath = url.parse(env.SERVER_URL).pathname || '/'
 
 app.use(mountPath, new ParseServer({
   appId: env.APP_ID,
+  clientKey: env.CLIENT_KEY,
   cloud: env.CLOUD,
   databaseURI: env.DATABASE_URI,
   masterKey: env.MASTER_KEY,
@@ -20,19 +21,17 @@ app.use(mountPath, new ParseServer({
 }))
 
 app.listen(env.PORT, () => {
-  console.log(`Parse Server UP and running on port ${env.PORT}.
-Accessible at: ${env.SERVER_URL}
-
+  console.log(`
           ՝--://////:-.
        -/ooooooooooooooo+:՝
     ՝:ooooooooooooooooooooo/.
    -+ooooooooooo+/:::/+oooooo/՝
   :ooooooooooo+. .:::-՝՝:ooooo+՝
  .ooooooooooo/ .+oooooo: -ooooo+
- +ooooooooooo՝ +oooooooo՝ oooooo-
-՝oooooooooooo  oooooooo/ ՝oooooo:
-՝oooooooooo+++++RIP++/- .+oooooo:
- +oooooo:՝՝՝՝՝՝՝՝՝՝՝.-:+oooooooo-
+ +ooooooooooo՝ +oooooooo՝ oooooo-    Parse Server UP and running on port ${env.PORT}.
+՝oooooooooooo  oooooooo/ ՝oooooo:    Accessible at: ${env.SERVER_URL}
+՝oooooooooo+++++RIP++/- .+oooooo:    App ID: ${env.APP_ID}
+ +oooooo:՝՝՝՝՝՝՝՝՝՝՝.-:+oooooooo-    Client Key: ${env.CLIENT_KEY}
  .ooooo+ ՝ooo//oooooooooooooooo+
   :ooooo. -:. :ooooooooooooooo+՝
   -+oooo+///+ooooooooooooooo/՝

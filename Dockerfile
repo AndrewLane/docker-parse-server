@@ -9,6 +9,7 @@ RUN mkdir -p cloud && touch cloud/main.js
 VOLUME /parse/cloud
 
 ENV APP_ID required
+ENV CLIENT_KEY required
 ENV CLOUD ./cloud/main.js
 ENV DATABASE_URI mongodb://mongo
 ENV MASTER_KEY required

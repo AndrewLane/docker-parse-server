@@ -13,6 +13,7 @@ composed with other services. For example with multiple apps and envs:
 ## Env
 
 - `APP_ID` **Required**
+- `CLIENT_KEY` **Required**
 - `CLOUD` Defaults to /cloud/main.js
 - `DATABASE_URI` Defaults to mongodb://mongo, so you can link to mongo easily
 - `MASTER_KEY` **Required**
