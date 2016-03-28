@@ -1,7 +1,9 @@
 'use strict'
 
 const app = require('express')()
+const bunyan = require('bunyan')
 const env = process.env
+const LoggerAdapter = require('parse-server/Adapters/Logger/LoggerAdapter')
 const ParseServer = require('parse-server').ParseServer
 const url = require('url')
 
@@ -10,18 +12,50 @@ const url = require('url')
 // http://17.0.1.2:1337/appname/dev/. Thus we need to mount at that URL.
 const mountPath = url.parse(env.SERVER_URL).pathname || '/'
 
+class Logger extends LoggerAdapter {
+  constructor () {
+    super()
+    this.log = bunyan.createLogger({
+      name: env.APP_NAME || 'parse-server',
+      streams: [
+        { stream: process.stdout },
+        {
+          type: 'rotating-file',
+          path: 'logs/parse.log',
+          period: '1d',
+          count: 30
+        }
+      ]
+    })
+  }
+
+  info () {
+    this.log.info(...arguments)
+  }
+
+  error () {
+    this.log.error(...arguments)
+  }
+
+  query (options, callback) {
+    callback([])
+  }
+}
+
 app.use(mountPath, new ParseServer({
   appId: env.APP_ID,
+  appName: env.APP_NAME,
   clientKey: env.CLIENT_KEY,
   cloud: env.CLOUD,
   databaseURI: env.DATABASE_URI,
+  loggerAdapter: Logger,
   masterKey: env.MASTER_KEY,
   port: +env.PORT,
   serverURL: env.SERVER_URL
 }))
 
 app.listen(env.PORT, () => {
-  console.log(`
+  console.error(`
           ՝--://////:-.
        -/ooooooooooooooo+:՝
     ՝:ooooooooooooooooooooo/.
