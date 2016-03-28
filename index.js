@@ -11,20 +11,23 @@ const url = require('url')
 // http://17.0.1.2:1337/appname/dev/. Thus we need to mount at that URL.
 const mountPath = url.parse(env.SERVER_URL).pathname || '/'
 
+const log = bunyan.createLogger({
+  name: env.APP_NAME || 'parse-server',
+  streams: [
+    { stream: process.stdout },
+    {
+      type: 'rotating-file',
+      path: 'logs/parse.log',
+      period: '1d',
+      count: 30
+    }
+  ]
+})
+
+
 class Logger {
   constructor () {
-    this.log = bunyan.createLogger({
-      name: env.APP_NAME || 'parse-server',
-      streams: [
-        { stream: process.stdout },
-        {
-          type: 'rotating-file',
-          path: 'logs/parse.log',
-          period: '1d',
-          count: 30
-        }
-      ]
-    })
+    this.log = log.child({ component: 'parse' })
   }
 
   info () {
@@ -39,6 +42,10 @@ class Logger {
     callback([])
   }
 }
+
+app.use(require('bunyan-middleware')({
+  logger: log.child({ component: 'http' })
+}))
 
 app.use(mountPath, new ParseServer({
   appId: env.APP_ID,

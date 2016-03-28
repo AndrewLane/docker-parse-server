@@ -6,6 +6,7 @@
   "license": "ISC",
   "dependencies": {
     "bunyan": "^1.8.0",
+    "bunyan-middleware": "^0.3.1",
     "express": "^4.13.4",
     "parse-server": "^2.1.1"
   }
