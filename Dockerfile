@@ -7,6 +7,7 @@ WORKDIR /parse
 
 RUN mkdir -p cloud && touch cloud/main.js
 VOLUME /parse/cloud
+VOLUME /parse/logs
 
 ENV APP_ID required
 ENV CLIENT_KEY required

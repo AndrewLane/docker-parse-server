@@ -1,4 +1,4 @@
-# [Parse Server](https://github.com/ParsePlatform/parse-server)
+# [Parse Server]
 
 See above for all documentation.
 
@@ -10,9 +10,16 @@ composed with other services. For example with multiple apps and envs:
     https://parse.example.com/appname/dev/
     https://parse.example.com/anotherapp/prod/
 
+Logs are written to STDOUT in "pretty" [Bunyan] format, and to file in "raw"
+JSON format. The welcome message is written to STDERR to not interfere.
+
+[Bunyan]: https://github.com/trentm/node-bunyan
+[Parse Server]: https://github.com/ParsePlatform/parse-server
+
 ## Env
 
 - `APP_ID` **Required**
+- `APP_NAME` Optional. Sets both the Parse internal app name, and in the logs
 - `CLIENT_KEY` **Required**
 - `CLOUD` Defaults to /cloud/main.js
 - `DATABASE_URI` Defaults to mongodb://mongo, so you can link to mongo easily
@@ -22,7 +29,8 @@ composed with other services. For example with multiple apps and envs:
 
 ## Volume
 
-- /cloud (By default contains an empty main.js)
+- /parse/cloud (By default contains an empty main.js)
+- /parse/logs (Logs named `parse.log` and rotated every day)
 
 ## Port
 
