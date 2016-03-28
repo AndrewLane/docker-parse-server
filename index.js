@@ -13,7 +13,6 @@ const mountPath = url.parse(env.SERVER_URL).pathname || '/'
 
 class Logger {
   constructor () {
-    super()
     this.log = bunyan.createLogger({
       name: env.APP_NAME || 'parse-server',
       streams: [
