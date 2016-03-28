@@ -3,7 +3,6 @@
 const app = require('express')()
 const bunyan = require('bunyan')
 const env = process.env
-const LoggerAdapter = require('parse-server/Adapters/Logger/LoggerAdapter')
 const ParseServer = require('parse-server').ParseServer
 const url = require('url')
 
@@ -12,7 +11,7 @@ const url = require('url')
 // http://17.0.1.2:1337/appname/dev/. Thus we need to mount at that URL.
 const mountPath = url.parse(env.SERVER_URL).pathname || '/'
 
-class Logger extends LoggerAdapter {
+class Logger {
   constructor () {
     super()
     this.log = bunyan.createLogger({
