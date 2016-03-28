@@ -1,7 +1,7 @@
 FROM node
 MAINTAINER McKay Software <opensource@mckaysoftware.co.nz>
 
-CMD node . | node_modules/.bin/bunyan
+CMD node . | node_modules/.bin/bunyan -Lo short
 EXPOSE 1337
 WORKDIR /parse
 
