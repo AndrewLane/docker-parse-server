@@ -11,7 +11,7 @@ VOLUME /parse/logs
 
 ENV APP_ID required
 ENV CLIENT_KEY required
-ENV CLOUD ./cloud/main.js
+ENV CLOUD /parse/cloud/main.js
 ENV DATABASE_URI mongodb://mongo
 ENV MASTER_KEY required
 ENV PORT 1337
