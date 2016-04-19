@@ -8,6 +8,7 @@
     "bunyan": "^1.8.0",
     "bunyan-middleware": "^0.3.1",
     "express": "^4.13.4",
-    "parse-server": "^2.1.1"
+    "parse-server": "^2.2.7",
+    "parse-server-simple-mailgun-adapter": "^1.0.0"
   }
 }

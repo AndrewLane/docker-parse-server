@@ -47,7 +47,7 @@ app.use(require('bunyan-middleware')({
   logger: log.child({ component: 'http' })
 }))
 
-app.use(mountPath, new ParseServer({
+const config = {
   appId: env.APP_ID,
   appName: env.APP_NAME,
   clientKey: env.CLIENT_KEY,
@@ -57,7 +57,22 @@ app.use(mountPath, new ParseServer({
   masterKey: env.MASTER_KEY,
   port: +env.PORT,
   serverURL: env.SERVER_URL
-}))
+}
+
+let mailer = '(none)'
+if (env.MAILGUN_KEY && env.MAILGUN_DOMAIN && env.MAILGUN_FROM) {
+  mailer = `Mailgun (${env.MAILGUN_FROM})`
+  config.emailAdapter = {
+    module: 'parse-server-simple-mailgun-adapter',
+    options: {
+      apiKey: env.MAILGUN_KEY,
+      domain: env.MAILGUN_DOMAIN,
+      fromAddress: env.MAILGUN_FROM
+    }
+  }
+}
+
+app.use(mountPath, new ParseServer(config))
 
 app.listen(env.PORT, () => {
   console.error(`
@@ -71,7 +86,7 @@ app.listen(env.PORT, () => {
 ՝oooooooooooo  oooooooo/ ՝oooooo:    Accessible at: ${env.SERVER_URL}
 ՝oooooooooo+++++RIP++/- .+oooooo:    App ID: ${env.APP_ID}
  +oooooo:՝՝՝՝՝՝՝՝՝՝՝.-:+oooooooo-    Client Key: ${env.CLIENT_KEY}
- .ooooo+ ՝ooo//oooooooooooooooo+
+ .ooooo+ ՝ooo//oooooooooooooooo+     Mailer: ${mailer}
   :ooooo. -:. :ooooooooooooooo+՝
   -+oooo+///+ooooooooooooooo/՝
     ՝:ooooooooooooooooooooo/.

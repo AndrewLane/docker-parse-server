@@ -27,6 +27,12 @@ JSON format. The welcome message is written to STDERR to not interfere.
 - `PORT` Defaults to 1337, coerced to a number
 - `SERVER_URL` **Required**
 
+### Mailgun (optional)
+
+- `MAILGUN_DOMAIN` Mailgun domain
+- `MAILGUN_FROM` Mailgun From address
+- `MAILGUN_KEY` Mailgun API key
+
 ## Volume
 
 - /parse/cloud (By default contains an empty main.js)
