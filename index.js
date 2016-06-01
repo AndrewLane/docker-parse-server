@@ -56,6 +56,7 @@ const config = {
   loggerAdapter: Logger,
   masterKey: env.MASTER_KEY,
   port: +env.PORT,
+  publicServerURL: env.PUBLIC_SERVER_URL || env.SERVER_URL,
   serverURL: env.SERVER_URL
 }
 
@@ -94,4 +95,3 @@ app.listen(env.PORT, () => {
          ՝--://////:-.
   `)
 })
-

@@ -25,6 +25,7 @@ JSON format. The welcome message is written to STDERR to not interfere.
 - `DATABASE_URI` Defaults to mongodb://mongo, so you can link to mongo easily
 - `MASTER_KEY` **Required**
 - `PORT` Defaults to 1337, coerced to a number
+- `PUBLIC_SERVER_URL` Public-facing URL for server, defaults to `SERVER_URL`
 - `SERVER_URL` **Required**
 
 ### Mailgun (optional)
@@ -41,4 +42,3 @@ JSON format. The welcome message is written to STDERR to not interfere.
 ## Port
 
 Exposes 1337 by default.
-
