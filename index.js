@@ -67,6 +67,31 @@ if (env.MAILGUN_KEY && env.MAILGUN_DOMAIN && env.MAILGUN_FROM) {
   }
 }
 
+let storage = '(none)'
+if (env.S3_ACCESS_KEY && env.S3_SECRET_KEY && env.S3_BUCKET) {
+  if (env.S3_BASEURL) {
+    storage = `S3 (${env.S3_BASEURL}/${env.S3_bucket})`
+  } else if (env.S3_REGION) {
+    storage = `S3 (${env.S3_REGION}/${env.S3_bucket})`
+  } else {
+    storage = `S3 (${env.S3_BUCKET})`
+  }
+
+  config.filesAdapter = {
+    module: 'parse-server-s3-adapter',
+    options: {
+      accessKey: env.S3_ACCESS_KEY,
+      secretKey: env.S3_SECRET_KEY,
+      bucket: env.S3_BUCKET,
+      region: env.S3_REGION || 'us-east-1',
+      bucketPrefix: env.S3_BUCKET_PREFIX || '',
+      directAccess: env.S3_DIRECT_ACCESS === 'true',
+      baseUrl: env.S3_BASEURL || null,
+      baseUrlDirect: env.S3_BASEURL_DIRECT === 'true'
+    }
+  }
+}
+
 // HAProxy passes on the full URL, so for example if we proxy the app onto
 // https://parse.example.com/appname/dev/ express is going to see that as
 // http://17.0.1.2:1337/appname/dev/. Thus we need to mount at that URL.
