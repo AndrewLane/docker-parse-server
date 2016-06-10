@@ -70,9 +70,9 @@ if (env.MAILGUN_KEY && env.MAILGUN_DOMAIN && env.MAILGUN_FROM) {
 let storage = '(none)'
 if (env.S3_ACCESS_KEY && env.S3_SECRET_KEY && env.S3_BUCKET) {
   if (env.S3_BASEURL) {
-    storage = `S3 (${env.S3_BASEURL}/${env.S3_bucket})`
+    storage = `S3 (${env.S3_BASEURL}/${env.S3_BUCKET})`
   } else if (env.S3_REGION) {
-    storage = `S3 (${env.S3_REGION}/${env.S3_bucket})`
+    storage = `S3 (${env.S3_REGION}/${env.S3_BUCKET})`
   } else {
     storage = `S3 (${env.S3_BUCKET})`
   }
