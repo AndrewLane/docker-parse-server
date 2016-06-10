@@ -115,7 +115,7 @@ app.listen(env.PORT, () => {
 ՝oooooooooo+++++RIP++/- .+oooooo:    App ID: ${env.APP_ID}
  +oooooo:՝՝՝՝՝՝՝՝՝՝՝.-:+oooooooo-    Client Key: ${env.CLIENT_KEY}
  .ooooo+ ՝ooo//oooooooooooooooo+     Mailer: ${mailer}
-  :ooooo. -:. :ooooooooooooooo+՝
+  :ooooo. -:. :ooooooooooooooo+՝     Storage: ${storage}
   -+oooo+///+ooooooooooooooo/՝
     ՝:ooooooooooooooooooooo/.
        ./ooooooooooooooo+:՝
