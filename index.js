@@ -67,27 +67,19 @@ if (env.MAILGUN_KEY && env.MAILGUN_DOMAIN && env.MAILGUN_FROM) {
   }
 }
 
-let storage = '(none)'
-if (env.S3_ACCESS_KEY && env.S3_SECRET_KEY && env.S3_BUCKET) {
-  if (env.S3_BASEURL) {
-    storage = `S3 (${env.S3_BASEURL}/${env.S3_BUCKET})`
-  } else if (env.S3_REGION) {
-    storage = `S3 (${env.S3_REGION}/${env.S3_BUCKET})`
-  } else {
-    storage = `S3 (${env.S3_BUCKET})`
-  }
-
+let storage = '(mongo)'
+if (env.STORE_ENDPOINT &&
+    env.STORE_ACCESS_KEY &&
+    env.STORE_SECRET_KEY &&
+    env.S3_BUCKET) {
+  storage = `${env.STORE_ENDPOINT} (${env.STORE_BUCKET})`
   config.filesAdapter = {
-    module: 'parse-server-s3-adapter',
+    module: 'parse-server-s3like-adapter',
     options: {
-      accessKey: env.S3_ACCESS_KEY,
-      secretKey: env.S3_SECRET_KEY,
-      bucket: env.S3_BUCKET,
-      region: env.S3_REGION || 'us-east-1',
-      bucketPrefix: env.S3_BUCKET_PREFIX || '',
-      directAccess: env.S3_DIRECT_ACCESS === 'true',
-      baseUrl: env.S3_BASEURL || null,
-      baseUrlDirect: env.S3_BASEURL_DIRECT === 'true'
+      accessKey: env.STORE_ACCESS_KEY,
+      bucket: env.STORE_BUCKET,
+      endPoint: env.STORE_ENDPOINT,
+      secretKey: env.STORE_SECRET_KEY
     }
   }
 }
