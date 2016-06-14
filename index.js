@@ -78,6 +78,7 @@ if (env.STORE_ENDPOINT &&
     options: {
       accessKey: env.STORE_ACCESS_KEY,
       bucket: env.STORE_BUCKET,
+      direct: (env.STORE_DIRECT || 'no').startsWith('y'),
       endPoint: env.STORE_ENDPOINT,
       secretKey: env.STORE_SECRET_KEY
     }
