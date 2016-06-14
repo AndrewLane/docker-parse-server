@@ -71,7 +71,7 @@ let storage = '(mongo)'
 if (env.STORE_ENDPOINT &&
     env.STORE_ACCESS_KEY &&
     env.STORE_SECRET_KEY &&
-    env.S3_BUCKET) {
+    env.STORE_BUCKET) {
   storage = `${env.STORE_ENDPOINT} (${env.STORE_BUCKET})`
   config.filesAdapter = {
     module: 'parse-server-s3like-adapter',
