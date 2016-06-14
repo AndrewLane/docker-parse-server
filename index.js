@@ -6,11 +6,6 @@ const env = process.env
 const ParseServer = require('parse-server').ParseServer
 const url = require('url')
 
-// HAProxy passes on the full URL, so for example if we proxy the app onto
-// https://parse.example.com/appname/dev/ express is going to see that as
-// http://17.0.1.2:1337/appname/dev/. Thus we need to mount at that URL.
-const mountPath = url.parse(env.SERVER_URL).pathname || '/'
-
 const log = bunyan.createLogger({
   name: env.APP_NAME || 'parse-server',
   streams: [
@@ -23,7 +18,6 @@ const log = bunyan.createLogger({
     }
   ]
 })
-
 
 class Logger {
   constructor () {
@@ -73,7 +67,15 @@ if (env.MAILGUN_KEY && env.MAILGUN_DOMAIN && env.MAILGUN_FROM) {
   }
 }
 
-app.use(mountPath, new ParseServer(config))
+// HAProxy passes on the full URL, so for example if we proxy the app onto
+// https://parse.example.com/appname/dev/ express is going to see that as
+// http://17.0.1.2:1337/appname/dev/. Thus we need to mount at that URL.
+
+const server = new ParseServer(config)
+app.use(url.parse(env.SERVER_URL).pathname || '/', server)
+if (env.ALT_SERVER_URL) {
+  app.use(url.parse(env.ALT_SERVER_URL).pathname || '/', server)
+}
 
 app.listen(env.PORT, () => {
   console.error(`
