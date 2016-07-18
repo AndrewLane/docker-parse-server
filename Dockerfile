@@ -17,5 +17,6 @@ ENV MASTER_KEY required
 ENV PORT 1337
 ENV SERVER_URL required
 
-ADD index.js package.json /parse/
+ADD package.json /parse/
 RUN npm install
+ADD index.js /parse/
