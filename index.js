@@ -68,23 +68,8 @@ if (env.MAILGUN_KEY && env.MAILGUN_DOMAIN && env.MAILGUN_FROM) {
 }
 
 let storage = '(mongo)'
-if (env.S3_ENDPOINT &&
-    env.S3_ACCESS_KEY &&
-    env.S3_SECRET_KEY &&
-    env.S3_BUCKET) {
-  storage = `${env.S3_ENDPOINT} (${env.S3_BUCKET})`
-  config.filesAdapter = {
-    module: 'parse-server-s3like-adapter',
-    options: {
-      accessKey: env.S3_ACCESS_KEY,
-      bucket: env.S3_BUCKET,
-      direct: (env.S3_DIRECT || 'no').startsWith('y'),
-      endPoint: env.S3_ENDPOINT,
-      secretKey: env.S3_SECRET_KEY
-    }
-  }
-} else if (env.DROPBOX_TOKEN && env.DROPBOX_PUBLICURL) {
-  storage = `Dropbox`
+if (env.DROPBOX_TOKEN && env.DROPBOX_PUBLICURL) {
+  storage = 'Dropbox'
   config.filesAdapter = {
     module: 'parse-server-dropbox-adapter',
     options: {
